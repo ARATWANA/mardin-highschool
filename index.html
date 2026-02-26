@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بنکەی چوارچرا — بۆ فێرکردن و لەبەرکردنی قورئانی پیرۆز</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#1B4332;--gm:#2D6A4F;--gl:#40916C;--g2:#D8F3DC;
+  --gold:#C9A84C;--gold-l:#E8C97A;--gold-d:#8B6914;
+  --cream:#FDF8F0;--cream-d:#F0E8D8;
+  --dark:#1A1008;--red:#991B1B;--blue:#1E3A5F;
+  --r:12px;--shadow:0 2px 12px rgba(0,0,0,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--dark);direction:rtl;overflow-x:hidden}
+
+/* ─── LANDING ─── */
+#landing{display:block}
+#app-shell{display:none}
+
+/* NAV */
+.land-nav{
+  position:fixed;top:0;width:100%;z-index:200;
+  background:rgba(27,67,50,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(201,168,76,.15);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 5%;height:68px;
+}
+.land-nav .brand{display:flex;align-items:center;gap:.8rem}
+.brand-icon{width:42px;height:42px;border-radius:50%;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Amiri',serif;font-size:1.3rem;color:var(--g);font-weight:700;
+  box-shadow:0 0 0 4px rgba(201,168,76,.2)}
+.brand-text h1{color:var(--gold-l);font-size:1rem;font-weight:700;line-height:1.2}
+.brand-text small{color:rgba(255,255,255,.45);font-size:.7rem}
+.land-nav ul{list-style:none;display:flex;gap:.2rem}
+.land-nav ul a{color:rgba(255,255,255,.75);text-decoration:none;padding:.45rem .85rem;border-radius:8px;font-size:.88rem;transition:.2s}
+.land-nav ul a:hover{background:rgba(201,168,76,.15);color:var(--gold-l)}
+.nav-login{background:var(--gold)!important;color:var(--g)!important;font-weight:700!important}
+.nav-login:hover{background:var(--gold-l)!important}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  background:linear-gradient(145deg,var(--g) 0%,#0d2b1e 55%,#162d22 100%);
+  display:flex;align-items:center;padding:5rem 5% 3rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 20% 60%,rgba(201,168,76,.09) 0,transparent 50%),
+    radial-gradient(circle at 80% 30%,rgba(201,168,76,.05) 0,transparent 40%)}
+.hero-geo{position:absolute;inset:0;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l30 30-30 30L0 30z' fill='%23C9A84C'/%3E%3C/svg%3E")}
+.hero-inner{display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;width:100%;position:relative;z-index:1;max-width:1200px;margin:0 auto}
+.hero-pill{display:inline-flex;align-items:center;gap:.5rem;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--gold-l);padding:.38rem 1rem;border-radius:50px;font-size:.8rem;margin-bottom:1.4rem}
+.hero h2{font-family:'Amiri',serif;font-size:clamp(2rem,3.8vw,3.4rem);color:#fff;line-height:1.35;margin-bottom:1rem}
+.hero h2 em{color:var(--gold);font-style:normal}
+.hero p{color:rgba(255,255,255,.68);font-size:1rem;line-height:1.85;max-width:520px;margin-bottom:2rem}
+.hero-btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn-hero{padding:.82rem 1.9rem;border-radius:10px;font-size:.95rem;font-weight:700;font-family:'Tajawal',sans-serif;cursor:pointer;text-decoration:none;border:none;transition:.25s;display:inline-block}
+.btn-hero-p{background:var(--gold);color:var(--g);box-shadow:0 4px 18px rgba(201,168,76,.3)}
+.btn-hero-p:hover{transform:translateY(-2px);box-shadow:0 7px 24px rgba(201,168,76,.4);background:var(--gold-l)}
+.btn-hero-o{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.3)}
+.btn-hero-o:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{display:flex;gap:2rem;margin-top:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.08)}
+.hstat .n{font-family:'Amiri',serif;font-size:2rem;font-weight:700;color:var(--gold)}
+.hstat .l{color:rgba(255,255,255,.5);font-size:.78rem;margin-top:2px}
+
+/* Quran card */
+.quran-card{
+  background:rgba(255,255,255,.04);backdrop-filter:blur(14px);
+  border:1px solid rgba(201,168,76,.18);border-radius:22px;
+  padding:2.8rem 2rem;text-align:center;
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+.qc-orn{color:var(--gold);font-size:1.6rem;margin:.8rem 0}
+.qc-arabic{font-family:'Amiri',serif;font-size:1.9rem;color:var(--gold-l);line-height:1.9;margin:.6rem 0}
+.qc-sub{color:rgba(255,255,255,.4);font-size:.8rem;margin-top:.8rem}
+.govt-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:.4rem 1rem;margin-top:1.2rem;font-size:.75rem;color:rgba(255,255,255,.55)}
+
+/* ABOUT section */
+.section{padding:5rem 5%}
+.sec-tag{display:inline-block;background:rgba(27,67,50,.1);color:var(--g);border:1px solid rgba(27,67,50,.2);padding:.28rem .9rem;border-radius:50px;font-size:.75rem;font-weight:600;margin-bottom:.9rem;letter-spacing:.4px}
+.sec-h{font-family:'Amiri',serif;font-size:clamp(1.7rem,2.8vw,2.6rem);color:var(--g);margin-bottom:.8rem}
+.sec-p{color:#555;font-size:.95rem;line-height:1.8;max-width:560px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3rem}
+.about-img{background:linear-gradient(145deg,var(--g),var(--gm));border-radius:20px;padding:3rem 2rem;text-align:center;color:#fff;position:relative;overflow:hidden}
+.about-img::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='15' fill='rgba(201,168,76,0.04)'/%3E%3C/svg%3E")}
+.about-icon{font-size:5rem;margin-bottom:1.2rem;position:relative}
+.about-img h3{font-family:'Amiri',serif;font-size:1.7rem;color:var(--gold-l);margin-bottom:.8rem;position:relative}
+.about-img p{color:rgba(255,255,255,.65);line-height:1.8;font-size:.9rem;position:relative}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.feature-item{display:flex;align-items:flex-start;gap:.9rem;padding:.9rem;border-radius:var(--r);transition:.2s}
+.feature-item:hover{background:rgba(27,67,50,.04)}
+.fi-icon{width:36px;height:36px;border-radius:9px;background:var(--g);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1rem;flex-shrink:0;margin-top:2px}
+.fi-text h4{font-size:.95rem;font-weight:700;color:var(--g);margin-bottom:.2rem}
+.fi-text p{color:#666;font-size:.83rem;line-height:1.6}
+
+/* COURSES */
+.courses-section{background:var(--cream-d)}
+.courses-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:2.5rem}
+.course-card{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);border:1px solid #eee;transition:.25s}
+.course-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.1)}
+.cc-head{padding:1.3rem 1.3rem .9rem;display:flex;align-items:center;gap:.8rem}
+.cc-icon{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.cc-head h3{font-size:.95rem;font-weight:700;color:var(--g)}
+.cc-level{font-size:.73rem;color:#999;margin-top:2px}
+.cc-body{padding:0 1.3rem 1.3rem}
+.cc-body p{color:#666;font-size:.83rem;line-height:1.7;margin-bottom:.9rem}
+.cc-tags{display:flex;gap:.5rem;flex-wrap:wrap}
+.cc-tag{background:var(--cream-d);color:#555;padding:.22rem .65rem;border-radius:6px;font-size:.73rem}
+
+/* LOGIN SECTION on landing */
+.login-section{background:var(--g);padding:5rem 5%}
+.login-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:900px;margin:2.5rem auto 0}
+.lc{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.15);border-radius:18px;padding:2rem;text-align:center;transition:.25s;cursor:pointer}
+.lc:hover{background:rgba(255,255,255,.08);border-color:var(--gold);transform:translateY(-3px)}
+.lc-icon{font-size:2.8rem;margin-bottom:1rem}
+.lc h3{color:var(--gold-l);font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
+.lc p{color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.6;margin-bottom:1.2rem}
+.lc-btn{display:inline-block;background:var(--gold);color:var(--g);padding:.6rem 1.5rem;border-radius:8px;font-weight:700;font-size:.88rem;text-decoration:none;transition:.2s;border:none;cursor:pointer;font-family:'Tajawal',sans-serif}
+.lc-btn:hover{background:var(--gold-l)}
+
+/* FOOTER */
+footer{background:var(--dark);color:rgba(255,255,255,.5);padding:2.5rem 5%;text-align:center}
+.foot-logo{font-family:'Amiri',serif;font-size:1.4rem;color:var(--gold);margin-bottom:.5rem}
+footer p{font-size:.82rem;margin:.3rem 0}
+.foot-gov{margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.05);padding:.4rem 1rem;border-radius:50px;font-size:.75rem}
+
+/* ════════════════════════════════════
+   APP SHELL
+════════════════════════════════════ */
+
+/* LOGIN MODAL */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:500;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-backdrop.open{display:flex}
+.login-modal{background:#fff;border-radius:22px;width:100%;max-width:420px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.lm-head{background:linear-gradient(135deg,var(--g),var(--gm));padding:2rem;text-align:center}
+.lm-head .logo-c{width:60px;height:60px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;font-size:1.5rem;color:var(--g);font-weight:700;margin:0 auto 1rem;box-shadow:0 0 0 5px rgba(201,168,76,.2)}
+.lm-head h2{color:#fff;font-size:1.1rem}
+.lm-head small{color:rgba(255,255,255,.55);font-size:.78rem}
+.lm-body{padding:1.8rem}
+.role-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:1.4rem}
+.rp{padding:.55rem;border-radius:8px;border:1px solid #e5e5e5;background:#fff;color:#777;font-size:.78rem;cursor:pointer;text-align:center;transition:.2s;font-family:'Tajawal',sans-serif}
+.rp:hover,.rp.on{background:var(--g);color:#fff;border-color:var(--g);font-weight:700}
+.lm-fg{margin-bottom:1rem}
+.lm-fg label{display:block;font-size:.8rem;font-weight:600;color:var(--g);margin-bottom:.35rem}
+.lm-fg input{width:100%;padding:.68rem .9rem;border:1px solid #ddd;border-radius:9px;font-size:.9rem;font-family:'Tajawal',sans-serif;direction:rtl;color:var(--dark);transition:.2s}
+.lm-fg input:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(27,67,50,.08)}
+.lm-submit{width:100%;padding:.8rem;background:var(--g);color:#fff;border:none;border-radius:9px;font-size:.95rem;font-weight:700;font-family:'Tajawal',sans-serif;cursor:pointer;transition:.2s;margin-top:.3rem}
+.lm-submit:hover{background:var(--gm)}
+.lm-hint{text-align:center;margin-top:.8rem;color:#aaa;font-size:.72rem}
+.lm-close{float:left;background:rgba(255,255,255,.15);border:none;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center}
+
+/* TOP BAR */
+.topbar{
+  background:var(--g);height:62px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 1.4rem;
+  position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.25);
+}
+.tb-brand{display:flex;align-items:center;gap:.7rem}
+.tb-logo{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Amiri',serif;color:var(--g);font-weight:700;box-shadow:0 0 0 3px rgba(201,168,76,.22)}
+.tb-brand h2{color:var(--gold-l);font-size:.95rem;font-weight:700}
+.tb-brand small{color:rgba(255,255,255,.42);font-size:.65rem;display:block}
+.tb-right{display:flex;align-items:center;gap:.8rem}
+.tb-user{display:flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.07);border-radius:50px;padding:.35rem .9rem}
+.tb-avatar{width:30px;height:30px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--g)}
+.tb-user span{color:rgba(255,255,255,.85);font-size:.83rem}
+.tb-badge{padding:.18rem .55rem;border-radius:50px;font-size:.68rem;font-weight:700}
+.tb-s{background:rgba(78,205,196,.2);color:#4ecdc4}
+.tb-t{background:rgba(255,215,0,.15);color:#ffd700}
+.tb-a{background:rgba(255,100,100,.15);color:#ff6464}
+.tb-logout{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.65);padding:.38rem .8rem;border-radius:8px;cursor:pointer;font-size:.78rem;font-family:'Tajawal',sans-serif;transition:.2s}
+.tb-logout:hover{background:rgba(255,255,255,.15);color:#fff}
+
+/* LAYOUT */
+.app-layout{display:flex;min-height:calc(100vh - 62px)}
+.sidebar{width:210px;background:#fff;border-left:1px solid #eee;position:sticky;top:62px;height:calc(100vh - 62px);overflow-y:auto;flex-shrink:0;padding:.8rem 0}
+.sb-sec{margin-bottom:1.2rem}
+.sb-sec-label{font-size:.67rem;color:#bbb;letter-spacing:.7px;font-weight:600;padding:0 1rem;margin-bottom:.35rem;text-transform:uppercase}
+.sb-item{display:flex;align-items:center;gap:.65rem;padding:.6rem 1rem;cursor:pointer;font-size:.85rem;color:#666;border-radius:0;transition:.15s;position:relative}
+.sb-item:hover{background:var(--cream);color:var(--g)}
+.sb-item.on{background:linear-gradient(90deg,rgba(27,67,50,.08),rgba(27,67,50,.02));color:var(--g);font-weight:700}
+.sb-item.on::after{content:'';position:absolute;right:0;top:20%;height:60%;width:3px;background:var(--gold);border-radius:0 0 0 3px}
+.sb-icon{width:20px;text-align:center;font-size:1rem}
+.sb-badge{margin-right:auto;background:var(--red);color:#fff;font-size:.65rem;padding:.1rem .42rem;border-radius:50px}
+.main{flex:1;padding:1.6rem;overflow-y:auto;min-height:calc(100vh - 62px)}
+
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.8rem}
+.ph h2{font-family:'Amiri',serif;font-size:1.5rem;color:var(--g)}
+.ph small{color:#999;font-size:.78rem;margin-top:.2rem;display:block}
+
+/* CARDS */
+.card{background:#fff;border-radius:var(--r);padding:1.3rem;box-shadow:var(--shadow);border:1px solid #f0f0f0;margin-bottom:1.1rem}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.card-title{font-weight:700;color:var(--g);font-size:.92rem;display:flex;align-items:center;gap:.45rem}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.9rem;margin-bottom:1.3rem}
+.sc{background:#fff;border-radius:var(--r);padding:1.1rem;box-shadow:var(--shadow);border:1px solid #f0f0f0;display:flex;align-items:center;gap:.8rem}
+.sc-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.sc-n{font-size:1.5rem;font-weight:900;color:var(--g);font-family:'Amiri',serif;line-height:1}
+.sc-l{font-size:.72rem;color:#999;margin-top:2px}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{background:var(--g);color:#fff;padding:.65rem .9rem;font-size:.78rem;text-align:right;font-weight:500;white-space:nowrap}
+.tbl td{padding:.7rem .9rem;border-bottom:1px solid #f5f5f5;font-size:.82rem;color:#444}
+.tbl tr:hover td{background:#fafafa}
+.tbl th:first-child{border-radius:0 8px 0 0}
+.tbl th:last-child{border-radius:8px 0 0 0}
+.bd{display:inline-block;padding:.2rem .6rem;border-radius:50px;font-size:.7rem;font-weight:700}
+.bd-g{background:#d1fae5;color:#065f46}
+.bd-a{background:#fef3c7;color:#92400e}
+.bd-r{background:#fee2e2;color:#991b1b}
+.bd-b{background:#dbeafe;color:#1e40af}
+.bd-p{background:#ede9fe;color:#5b21b6}
+
+/* FORMS */
+.fg{margin-bottom:.9rem}
+.fg label{display:block;font-size:.78rem;font-weight:600;color:var(--g);margin-bottom:.32rem}
+.fg input,.fg select,.fg textarea{width:100%;padding:.62rem .85rem;border:1px solid #ddd;border-radius:8px;font-size:.86rem;font-family:'Tajawal',sans-serif;direction:rtl;color:var(--dark);transition:.2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--g);box-shadow:0 0 0 3px rgba(27,67,50,.07)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.btn{padding:.58rem 1.2rem;border-radius:8px;border:none;font-size:.85rem;font-family:'Tajawal',sans-serif;font-weight:700;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:.4rem}
+.btn-p{background:var(--g);color:#fff}.btn-p:hover{background:var(--gm)}
+.btn-g{background:var(--gold);color:var(--g)}.btn-g:hover{background:var(--gold-l)}
+.btn-o{background:transparent;color:var(--g);border:1px solid var(--g)}.btn-o:hover{background:var(--g);color:#fff}
+.btn-r{background:var(--red);color:#fff}
+.btn-sm{padding:.35rem .75rem;font-size:.74rem}
+
+/* PROGRESS */
+.pw{background:#eee;border-radius:50px;height:7px;overflow:hidden;margin:.35rem 0}
+.pb{height:100%;border-radius:50px;background:linear-gradient(90deg,var(--g),var(--gl))}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--g);color:#fff;padding:.8rem 1.4rem;border-radius:12px;font-size:.88rem;font-family:'Tajawal',sans-serif;z-index:9999;box-shadow:0 6px 24px rgba(0,0,0,.25);animation:fadeUp .3s ease;display:flex;align-items:center;gap:.5rem}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* HAFIZ TABLE */
+.htbl{width:100%;border-collapse:collapse;min-width:680px;font-family:'Amiri',serif}
+.htbl th{background:var(--g);color:var(--gold-l);padding:.65rem .5rem;font-size:.8rem;text-align:center;border:1px solid rgba(255,255,255,.15)}
+.htbl td{padding:.5rem .4rem;border:1px solid #d0d0d0;text-align:center;font-size:.88rem}
+.htbl tr:hover td{background:#fffbf0}
+.htbl .subth{background:rgba(27,67,50,.07);font-family:'Tajawal',sans-serif;font-size:.72rem;color:var(--g);font-weight:600}
+.htbl input,.htbl select{border:none;background:transparent;width:100%;text-align:center;font-family:'Amiri',serif;font-size:.86rem;color:var(--dark);padding:.15rem}
+.htbl input:focus,.htbl select:focus{outline:1px dashed var(--gold);border-radius:4px}
+.hinfo{background:linear-gradient(135deg,rgba(27,67,50,.04),rgba(201,168,76,.04));border:1px solid rgba(27,67,50,.1);border-radius:var(--r);padding:1rem 1.2rem;margin-bottom:1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem}
+.hinfo label{font-size:.72rem;color:#999;display:block;margin-bottom:.28rem}
+.hinfo input,.hinfo select{width:100%;padding:.38rem .6rem;border:1px solid #ddd;border-radius:6px;font-family:'Tajawal',sans-serif;font-size:.82rem;direction:rtl}
+
+/* CHAT */
+.chat-layout{display:grid;grid-template-columns:240px 1fr;gap:1rem;height:calc(100vh - 200px)}
+.chat-rooms{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);border:1px solid #f0f0f0;overflow:hidden;display:flex;flex-direction:column}
+.chat-rooms-head{padding:.9rem 1rem;border-bottom:1px solid #f0f0f0;font-weight:700;color:var(--g);font-size:.88rem;display:flex;align-items:center;justify-content:space-between}
+.room-item{padding:.75rem 1rem;cursor:pointer;border-bottom:1px solid #f8f8f8;transition:.15s;display:flex;align-items:center;gap:.7rem}
+.room-item:hover{background:var(--cream)}
+.room-item.on{background:rgba(27,67,50,.07)}
+.room-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.room-info h4{font-size:.82rem;font-weight:700;color:var(--dark)}
+.room-info p{font-size:.72rem;color:#aaa;margin-top:2px}
+.room-info .unread{background:var(--g);color:#fff;font-size:.65rem;padding:.1rem .4rem;border-radius:50px}
+
+.chat-main{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);border:1px solid #f0f0f0;display:flex;flex-direction:column}
+.chat-head{padding:.9rem 1.2rem;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:.8rem}
+.chat-head h3{font-size:.92rem;font-weight:700;color:var(--g)}
+.chat-head small{font-size:.72rem;color:#aaa}
+.chat-messages{flex:1;padding:1rem;overflow-y:auto;display:flex;flex-direction:column;gap:.7rem;min-height:0;max-height:calc(100vh - 380px)}
+.msg{max-width:70%;padding:.7rem 1rem;border-radius:14px;font-size:.84rem;line-height:1.6;position:relative}
+.msg-in{background:var(--cream-d);color:var(--dark);align-self:flex-end;border-radius:14px 14px 4px 14px}
+.msg-out{background:var(--g);color:#fff;align-self:flex-start;border-radius:14px 14px 14px 4px}
+.msg-name{font-size:.68rem;font-weight:700;margin-bottom:.3rem;opacity:.7}
+.msg-time{font-size:.62rem;opacity:.5;margin-top:.3rem;text-align:left}
+.chat-input{padding:.9rem 1rem;border-top:1px solid #f0f0f0;display:flex;gap:.6rem;align-items:flex-end}
+.chat-input textarea{flex:1;border:1px solid #ddd;border-radius:10px;padding:.6rem .9rem;font-family:'Tajawal',sans-serif;font-size:.85rem;direction:rtl;resize:none;height:42px;transition:.2s}
+.chat-input textarea:focus{outline:none;border-color:var(--g)}
+.chat-send{background:var(--g);color:#fff;border:none;width:42px;height:42px;border-radius:10px;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.chat-send:hover{background:var(--gm)}
+
+/* TASKS */
+.task-item{display:flex;align-items:flex-start;gap:.8rem;padding:.9rem;border-radius:var(--r);border:1px solid #eee;background:#fff;margin-bottom:.7rem;transition:.2s}
+.task-item:hover{box-shadow:var(--shadow)}
+.task-check{width:22px;height:22px;border-radius:6px;border:2px solid #ddd;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:.2s;margin-top:2px}
+.task-check.done{background:var(--g);border-color:var(--g);color:#fff}
+.task-body{flex:1}
+.task-body h4{font-size:.88rem;font-weight:700;color:var(--dark)}
+.task-body h4.done{text-decoration:line-through;color:#aaa}
+.task-body p{font-size:.78rem;color:#888;margin-top:.2rem}
+.task-meta{display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap}
+.task-tag{font-size:.7rem;padding:.18rem .55rem;border-radius:50px}
+.deadline-tag{background:#fee2e2;color:#991b1b}
+.subject-tag{background:#dbeafe;color:#1e40af}
+
+/* ATTENDANCE */
+.att-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;margin-top:1rem}
+.att-day{border-radius:8px;padding:.5rem .3rem;text-align:center;font-size:.72rem}
+.att-p{background:#d1fae5;color:#065f46}
+.att-a{background:#fee2e2;color:#991b1b}
+.att-x{background:#f3f4f6;color:#9ca3af}
+.att-day .d{font-weight:700;margin-bottom:2px}
+.att-day .s{font-size:.65rem}
+
+/* TABS */
+.tabs{display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap;border-bottom:2px solid #eee;padding-bottom:.6rem}
+.tab-b{padding:.45rem 1rem;border-radius:8px 8px 0 0;border:none;background:transparent;cursor:pointer;font-size:.83rem;color:#888;transition:.2s;font-family:'Tajawal',sans-serif}
+.tab-b:hover,.tab-b.on{color:var(--g);font-weight:700;background:rgba(27,67,50,.07)}
+.tab-c{display:none}.tab-c.on{display:block}
+
+/* ATTENDANCE TABLE for admin */
+.att-tbl-wrap{overflow-x:auto}
+.att-tbl{min-width:900px;width:100%;border-collapse:collapse}
+.att-tbl th{background:var(--g);color:#fff;padding:.55rem .7rem;font-size:.75rem;text-align:center;border:1px solid rgba(255,255,255,.1);white-space:nowrap}
+.att-tbl td{padding:.5rem .7rem;border:1px solid #e8e8e8;text-align:center;font-size:.78rem}
+.att-tbl .name-col{text-align:right;font-weight:600;color:var(--g)}
+.att-dot{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700}
+.dot-p{background:#d1fae5;color:#065f46}
+.dot-a{background:#fee2e2;color:#991b1b}
+.dot-x{background:#f3f4f6;color:#aaa}
+
+/* PRINT */
+@media print{.sidebar,.topbar,.no-print{display:none!important}.main{padding:0}}
+@media(max-width:768px){
+  .sidebar{display:none}.chat-layout{grid-template-columns:1fr}.frow{grid-template-columns:1fr}
+  .hero-inner{grid-template-columns:1fr}.quran-card{display:none}
+  .courses-grid{grid-template-columns:1fr}.login-cards{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr}.stats-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     LANDING PAGE
+══════════════════════════════════════ -->
+<div id="landing">
+
+<!-- NAV -->
+<nav class="land-nav">
+  <div class="brand">
+    <div class="brand-icon">ق</div>
+    <div class="brand-text">
+      <h1>بنکەی چوارچرا</h1>
+      <small>بۆ فێرکردن و لەبەرکردنی قورئانی پیرۆز</small>
+    </div>
+  </div>
+  <ul>
+    <li><a href="#about">دەربارەمان</a></li>
+    <li><a href="#courses">کۆرسەکان</a></li>
+    <li><a href="#contact">پەیوەندی</a></li>
+    <li><a href="#portals" class="nav-login" onclick="openLogin('student')">چوونەژوورەوە</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-geo"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-pill">🕌 سەر بە وەزارەتی ئاوەدانیکردنەوە و گشتی — حوکمەتی هەرێمی کوردستان</div>
+      <h2>بنکەی چوارچرا<br>بۆ <em>فێرکردن و لەبەرکردنی</em><br>قورئانی پیرۆز</h2>
+      <p>بنکەی حکومییمان خزمەتگوزاری پیشەیی فێردانی قورئانی کەریم پێشکەش دەکات — لە قاعیدەی بغدادیەوە بۆ حفظ و تەجوید و تەفسیر، بۆ هەموو تەمەن و ئاستێک لە ناوچەی چوارچرا.</p>
+      <div class="hero-btns">
+        <a href="#portals" class="btn-hero btn-hero-p" onclick="openLogin('student')">تۆمارکردنی قوتابی</a>
+        <a href="#about" class="btn-hero btn-hero-o">زیاتر بزانە</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="n">٥٠٠+</div><div class="l">قوتابی چالاک</div></div>
+        <div class="hstat"><div class="n">٣٠+</div><div class="l">مامۆستای پسپۆڕ</div></div>
+        <div class="hstat"><div class="n">١٥</div><div class="l">جۆری کۆرس</div></div>
+        <div class="hstat"><div class="n">١٢</div><div class="l">ساڵی ئەزموون</div></div>
+      </div>
+    </div>
+    <div class="quran-card">
+      <div class="qc-orn">❋</div>
+      <div class="qc-arabic">بِسْمِ اللَّهِ<br>الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <div class="qc-orn">❋</div>
+      <div class="qc-sub">بە ناوی خودا، ئەو بەخشندەی بەخشایشگەرە</div>
+      <div class="govt-badge">🏛️ دامەزراوەی حکومی — وەزارەتی ئاوەدانیکردنەوە</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div style="text-align:center;margin-bottom:.5rem"><div class="sec-tag">دەربارەمان</div></div>
+  <div style="text-align:center"><h2 class="sec-h">چرا بنکەی چوارچرا؟</h2></div>
+  <div class="about-grid">
+    <div class="about-img">
+      <div class="about-icon">🕌</div>
+      <h3>ئامانجمان</h3>
+      <p>دروستکردنی نەوەیەکی قورئانکار لە ناوچەی چوارچرا — کە قورئانی کەریم لەبەردەزانێت، تێیدەگات، و لەژیانی خۆیدا جێبەجێی دەکات.</p>
+    </div>
+    <ul class="feature-list">
+      <li class="feature-item"><div class="fi-icon">🎓</div><div class="fi-text"><h4>مامۆستای پسپۆڕ و مووجاز</h4><p>هەموو مامۆستایەکمان موجازنامەی فێردانی قورئانی هەیە لە ئەکادیمیا و دامەزراوە پێناسەکراوەکان.</p></div></li>
+      <li class="feature-item"><div class="fi-icon">📊</div><div class="fi-text"><h4>سیستەمی ئەلیکترۆنی تەواو</h4><p>شوپاندنی پێشکەوتن، ئامادەبوون، نمرەکان، و پەیوەندی بە مامۆستا — هەموو لە ژوورەکەت.</p></div></li>
+      <li class="feature-item"><div class="fi-icon">👨‍👩‍👧</div><div class="fi-text"><h4>بۆ هەموو تەمەن</h4><p>بەرنامەی تایبەت بۆ منداڵ، گەنج، و مەزن — هەر کەسێک دەتوانێت دەستپێک بکات.</p></div></li>
+      <li class="feature-item"><div class="fi-icon">🏛️</div><div class="fi-text"><h4>دامەزراوەی حکومی</h4><p>بنکەکە سەر بە حوکمەتی هەرێمی کوردستانە و خزمەتگوزاریەکانی بەخۆڕایی پێشکەش دەکرێن.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section class="section courses-section" id="courses">
+  <div style="text-align:center"><div class="sec-tag">کۆرسەکانمان</div><h2 class="sec-h">بابەتەکانی فێربوون</h2></div>
+  <div class="courses-grid">
+    <div class="course-card"><div class="cc-head"><div class="cc-icon" style="background:#d1fae5">📖</div><div><h3>قاعیدەی بغدادیە</h3><div class="cc-level">ئاستی دەستپێک</div></div></div><div class="cc-body"><p>فێرکردنی تیپێکانی عەرەبی و دەنگەکان بۆ کەسانێک کە تازە دەستیان پێکردووە.</p><div class="cc-tags"><span class="cc-tag">⏱ ٣ مانگ</span><span class="cc-tag">👥 منداڵ و مەزن</span></div></div></div>
+    <div class="course-card"><div class="cc-head"><div class="cc-icon" style="background:#fef3c7">🌟</div><div><h3>تەجوید</h3><div class="cc-level">ئاستی ناوەند</div></div></div><div class="cc-body"><p>یاساکانی دروست خوێندنەوەی قورئان لەسەر شێوازی قارییەکانی بەناو.</p><div class="cc-tags"><span class="cc-tag">⏱ ٦ مانگ</span><span class="cc-tag">👥 هەموو ئاست</span></div></div></div>
+    <div class="course-card"><div class="cc-head"><div class="cc-icon" style="background:#ede9fe">📚</div><div><h3>حفظی قورئان</h3><div class="cc-level">ئاستی بەرز</div></div></div><div class="cc-body"><p>بەرنامەی تاسسس بۆ حفظکردنی قورئانی کەریم بە رووتین و شێوازی زانستی.</p><div class="cc-tags"><span class="cc-tag">⏱ ٢ ساڵ</span><span class="cc-tag">👥 ئاستی بەرز</span></div></div></div>
+    <div class="course-card"><div class="cc-head"><div class="cc-icon" style="background:#fee2e2">🔍</div><div><h3>تەفسیر</h3><div class="cc-level">ئاستی بەرز</div></div></div><div class="cc-body"><p>تێگەیشتن و شیکردنەوەی ئایەتەکانی قورئانی کەریم بە تەفسیرەکانی بەناو.</p><div class="cc-tags"><span class="cc-tag">⏱ ١ ساڵ</span><span class="cc-tag">👥 مەزنان</span></div></div></div>
+    <div class="course-card"><div class="cc-head"><div class="cc-icon" style="background:#e0f2fe">🌙</div><div><h3>زمانی عەرەبی</h3><div class="cc-level">هەموو ئاست</div></div></div><div class="cc-body"><p>فێرکردنی ڕستەبەستن و ڕێزمانی زمانی عەرەبی بۆ تێگەیشتن زیاتر لە قورئان.</p><div class="cc-tags"><span class="cc-tag">⏱ ٤ مانگ</span><span class="cc-tag">👥 هەموو</span></div></div></div>
+    <div class="course-card"><div class="cc-head"><div class="cc-icon" style="background:#fce7f3">👶</div><div><h3>چینی منداڵان</h3><div class="cc-level">تەمەن ٥-١٢</div></div></div><div class="cc-body"><p>بەرنامەی تایبەت بۆ منداڵان بە شێوازی لیستکردن و گرابەخۆو.</p><div class="cc-tags"><span class="cc-tag">⏱ ٦ مانگ</span><span class="cc-tag">👥 منداڵ</span></div></div></div>
+  </div>
+</section>
+
+<!-- PORTALS / LOGIN CARDS --
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="foot-logo">بنکەی چوارچرا</div>
+  <p>📍 چوارچرا، سلێمانی، کوردستان &nbsp;|&nbsp; 📞 ٠٧٧٠-١٢٣-٤٥٦٧ &nbsp;|&nbsp; ✉️ info@chwarcha.gov.krd</p>
+  <div class="foot-gov">🏛️ سەر بە وەزارەتی ئاوەدانیکردنەوە و گشتی — حوکمەتی هەرێمی کوردستان</div>
+  <p style="margin-top:1rem;font-size:.72rem;opacity:.35">© ٢٠٢٥ بنکەی چوارچرا — هەموو مافێک پارێزراوە</p>
+</footer>
+
+</div><!-- /landing -->
+
+<!-- ══════════════════════════════════════
+     LOGIN MODAL
+══════════════════════════════════════ -->
+<div class="modal-backdrop" id="login-modal">
+  <div class="login-modal">
+    <div class="lm-head">
+      <button class="lm-close" onclick="closeLogin()">✕</button>
+      <div class="logo-c">ق</div>
+      <h2>بنکەی چوارچرا</h2>
+      <small>چوونەژوورەوە بۆ سیستەمی ئەلیکترۆنی</small>
+    </div>
+    <div class="lm-body">
+      <div class="lm-fg"><label>ئیمەیڵ</label><input type="email" id="li-email" placeholder="example@chwarcha.gov.krd"></div>
+      <div class="lm-fg"><label>پاسووورد</label><input type="password" id="li-pass" placeholder="••••••••"></div>
+      <div id="li-err" style="display:none;background:#fee2e2;border:1px solid #fca5a5;color:#991b1b;border-radius:8px;padding:.6rem .9rem;font-size:.82rem;margin-bottom:.6rem"></div>
+      <button class="lm-submit" onclick="doLogin()">چوونەژوورەوە ←</button>
+      <p class="lm-hint">دێمۆ ئیمەیڵ: student@ / teacher@ / admin@chwarcha.gov.krd — پاسووورد: 1234</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     APP SHELL
+══════════════════════════════════════ -->
+<div id="app-shell">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <div class="tb-logo" style="font-family:'Amiri',serif;font-size:1rem;font-weight:700">ق</div>
+      <div>
+        <h2>بنکەی چوارچرا</h2>
+        <small>فێرکردن و لەبەرکردنی قورئانی پیرۆز</small>
+      </div>
+    </div>
+    <div class="tb-right">
+      <div class="tb-user">
+        <div class="tb-avatar" id="tb-av">ئ</div>
+        <span id="tb-name">—</span>
+        <span class="tb-badge" id="tb-role-badge">—</span>
+      </div>
+      <button class="tb-logout" onclick="doLogout()">↩ چوونەدەرەوە</button>
+    </div>
+  </div>
+
+  <div class="app-layout">
+    <aside class="sidebar" id="sidebar-el"></aside>
+    <main class="main" id="main-el">
+
+      <!-- ══ STUDENT PANELS ══ -->
+      <div id="p-s-home" class="panel">
+        <div class="ph"><div><h2>بەخێربێیت 👋 <span id="s-display-name"></span></h2><small>داشبۆردی قوتابی</small></div></div>
+        <div class="stats-row">
+          <div class="sc"><div class="sc-icon" style="background:#d1fae5">📖</div><div><div class="sc-n">٧</div><div class="sc-l">وانەی ئەمسەر</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#fef3c7">⭐</div><div><div class="sc-n">٩٢٪</div><div class="sc-l">ئاژانوی داوا</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#ede9fe">🕌</div><div><div class="sc-n">٣</div><div class="sc-l">سوڕەتی حفظکراو</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#fee2e2">✅</div><div><div class="sc-n" id="s-task-count">٢</div><div class="sc-l">ئەرکی چاوەروان</div></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem">
+          <div class="card">
+            <div class="card-h"><div class="card-title">📊 پێشکەوتنم</div></div>
+            <div style="display:flex;flex-direction:column;gap:.8rem">
+              <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>تەجوید</span><span style="font-weight:700;color:var(--g)">٨٥٪</span></div><div class="pw"><div class="pb" style="width:85%"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>حفظ</span><span style="font-weight:700;color:var(--g)">٦٢٪</span></div><div class="pw"><div class="pb" style="width:62%;background:linear-gradient(90deg,#D97706,#F59E0B)"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>زمانی عەرەبی</span><span style="font-weight:700;color:var(--g)">٧١٪</span></div><div class="pw"><div class="pb" style="width:71%"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>قاعیدە</span><span style="font-weight:700;color:var(--g)">٩٤٪</span></div><div class="pw"><div class="pb" style="width:94%"></div></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><div class="card-title">📅 کاتژمێری هەفتانە</div></div>
+            <div style="font-size:.82rem;display:flex;flex-direction:column;gap:.5rem">
+              <div style="display:flex;justify-content:space-between;padding:.5rem .7rem;background:var(--cream);border-radius:8px"><span>📖 تەجوید</span><span style="color:#888">شەممە ٩:٠٠</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.5rem .7rem;background:var(--cream);border-radius:8px"><span>🌙 حفظ</span><span style="color:#888">شەممە ٣:٠٠</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.5rem .7rem;background:var(--cream);border-radius:8px"><span>📚 عەرەبی</span><span style="color:#888">دووشەممە ١٠:٠٠</span></div>
+              <div style="display:flex;justify-content:space-between;padding:.5rem .7rem;background:var(--cream);border-radius:8px"><span>✨ تەفسیر</span><span style="color:#888">چوارشەممە ٩:٠٠</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Upcoming tasks preview -->
+        <div class="card">
+          <div class="card-h"><div class="card-title">📋 ئەرکەکانم</div><button class="btn btn-o btn-sm" onclick="showP('s-tasks')">هەموو ببینە</button></div>
+          <div id="s-task-preview"></div>
+        </div>
+      </div>
+
+      <div id="p-s-hafiz" class="panel">
+        <div class="ph">
+          <div><h2>دەفتەری حفظم</h2><small>تۆمارکردنی ئایەتی حفظکراو — وەک دەفتەری بنکەکە</small></div>
+          <div style="display:flex;gap:.6rem" class="no-print">
+            <button class="btn btn-o" onclick="window.print()">🖨️ چاپ</button>
+            <button class="btn btn-g" onclick="addHRow('s-hbody')">+ زیادکردن</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="hinfo">
+            <div><label>ناوی فێرخواز</label><input value="ئەحمەد عەلی حەسەن"></div>
+            <div><label>قۆناغ</label><select><option>ئاستی ١</option><option>ئاستی ٢</option><option selected>ئاستی ٣</option></select></div>
+            <div><label>ناوی مامۆستا</label><input value="ش. مستەفا کەریم"></div>
+            <div><label>مانگ / ساڵ</label><input value="فیبراییری ٢٠٢٥"></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="htbl">
+              <thead>
+                <tr><th rowspan="2">بەروار</th><th rowspan="2">ڕۆژ</th><th rowspan="2">نامادابوون</th><th colspan="2">ئایەت</th><th rowspan="2">سووراتی</th><th rowspan="2">تێبینی</th><th rowspan="2" class="no-print">کردار</th></tr>
+                <tr><th class="subth">لە</th><th class="subth">بۆ</th></tr>
+              </thead>
+              <tbody id="s-hbody">
+                <tr><td><input value="١٠/٠٢"></td><td><input value="شەممە"></td><td><input value="✓"></td><td><input value="٩٤"></td><td><input value="١٠٥"></td><td><select><option>البقرة</option><option selected>البقرة/جزء</option></select></td><td><input value="هەمفەنتە / جیید"></td><td class="no-print" style="text-align:center"><button class="btn btn-r btn-sm" onclick="delRow(this)">×</button></td></tr>
+                <tr><td><input value="١٢/٠٢"></td><td><input value="دووشەممە"></td><td><input value="✓"></td><td><input value="١٠٦"></td><td><input value="١١٩"></td><td><select><option selected>البقرة</option></select></td><td><input value="جیید"></td><td class="no-print" style="text-align:center"><button class="btn btn-r btn-sm" onclick="delRow(this)">×</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:.8rem" class="no-print"><button class="btn btn-p" onclick="toast('دەفتەرەکە خەزنکرا ✅')">خەزنکردن</button></div>
+        </div>
+      </div>
+
+      <div id="p-s-tasks" class="panel">
+        <div class="ph"><div><h2>ئەرکەکانم</h2><small>ئەرکی دانراو لە مامۆستا</small></div></div>
+        <div id="s-tasks-list"></div>
+      </div>
+
+      <div id="p-s-grades" class="panel">
+        <div class="ph"><div><h2>نمرەکانم</h2></div></div>
+        <div class="card"><table class="tbl">
+          <tr><th>بابەت</th><th>مامۆستا</th><th>مانگانە</th><th>نیوسەر</th><th>نمرەی کوای</th><th>ئاست</th></tr>
+          <tr><td>تەجوید</td><td>ش. مستەفا</td><td>٩٢</td><td>٨٨</td><td><strong>٩٠</strong></td><td><span class="bd bd-g">A</span></td></tr>
+          <tr><td>حفظ</td><td>ش. سامی</td><td>٨٥</td><td>٨٠</td><td><strong>٨٢</strong></td><td><span class="bd bd-g">B+</span></td></tr>
+          <tr><td>زمانی عەرەبی</td><td>ش. عومەر</td><td>٧٢</td><td>٦٨</td><td><strong>٧٠</strong></td><td><span class="bd bd-a">C+</span></td></tr>
+          <tr><td>قاعیدە</td><td>ش. مستەفا</td><td>٩٥</td><td>٩٨</td><td><strong>٩٧</strong></td><td><span class="bd bd-g">A+</span></td></tr>
+        </table></div>
+        <div class="card">
+          <div class="card-h"><div class="card-title">📅 ئامادەبوونی ئەمساڵم</div></div>
+          <div class="att-grid" id="s-att-grid"></div>
+        </div>
+      </div>
+
+      <div id="p-s-files" class="panel">
+        <div class="ph"><div><h2>فایلەکانم</h2><small>فایلی ناردراو لە مامۆستا</small></div></div>
+        <div id="s-files-area"></div>
+      </div>
+
+      <div id="p-s-chat" class="panel">
+        <div class="ph"><div><h2>چات</h2><small>پەیوەندی بە مامۆستا و هاوڕێکانت</small></div></div>
+        <div class="chat-layout">
+          <div class="chat-rooms">
+            <div class="chat-rooms-head">گفتوگۆکان</div>
+            <div id="s-rooms"></div>
+          </div>
+          <div class="chat-main" id="s-chat-main">
+            <div class="chat-head"><div><h3 id="s-chat-title">گفتوگۆ هەڵبژێرە</h3><small id="s-chat-sub">—</small></div></div>
+            <div class="chat-messages" id="s-chat-msgs"></div>
+            <div class="chat-input">
+              <textarea id="s-chat-inp" placeholder="پەیامت بنووسە..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat('student')}"></textarea>
+              <button class="chat-send" onclick="sendChat('student')">➤</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="p-s-profile" class="panel">
+        <div class="ph"><div><h2>پرۆفایلم</h2></div></div>
+        <div class="card" style="max-width:580px">
+          <div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:1.3rem;padding-bottom:1.1rem;border-bottom:1px solid #f0f0f0">
+            <div style="width:66px;height:66px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--gold);font-family:'Amiri',serif;font-weight:700">ئ</div>
+            <div><h3 style="color:var(--g)">ئەحمەد عەلی حەسەن</h3><p style="color:#888;font-size:.82rem">قوتابی — ئاستی ٣ — تەجوید</p></div>
+          </div>
+          <div class="frow"><div class="fg"><label>ناوی یەکەم</label><input value="ئەحمەد"></div><div class="fg"><label>ناوی باپیر</label><input value="عەلی حەسەن"></div></div>
+          <div class="frow"><div class="fg"><label>ئیمەیڵ</label><input type="email" value="student@chwarcha.gov.krd"></div><div class="fg"><label>تەلەفۆن</label><input value="٠٧٧٠-١٢٣-٤٥٦٧"></div></div>
+          <div class="frow"><div class="fg"><label>پاسووردی نوێ</label><input type="password" placeholder="•••••••"></div><div class="fg"><label>دووبارەکردنەوە</label><input type="password" placeholder="•••••••"></div></div>
+          <button class="btn btn-p" onclick="toast('پرۆفایلەکەت نوێکرایەوە ✅')">خەزنکردن</button>
+        </div>
+      </div>
+
+      <!-- ══ TEACHER PANELS ══ -->
+      <div id="p-t-home" class="panel">
+        <div class="ph"><div><h2>بەخێربێیت مامۆستا 👋</h2><small>داشبۆردی مامۆستا</small></div></div>
+        <div class="stats-row">
+          <div class="sc"><div class="sc-icon" style="background:#d1fae5">👨‍🎓</div><div><div class="sc-n">٤٥</div><div class="sc-l">قوتابی</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#fef3c7">📚</div><div><div class="sc-n">٣</div><div class="sc-l">چینی چالاک</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#ede9fe">✅</div><div><div class="sc-n">٥</div><div class="sc-l">ئەرکی دراو</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#fee2e2">💬</div><div><div class="sc-n">٣</div><div class="sc-l">گرووپی چالاک</div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><div class="card-title">👨‍🎓 قوتابیانم</div></div>
+          <table class="tbl">
+            <tr><th>ناو</th><th>چین</th><th>داوا</th><th>نمرە</th><th>بارودۆخ</th><th>کردار</th></tr>
+            <tr><td>ئەحمەد عەلی</td><td>تەجوید-الف</td><td>٩٢٪</td><td>A</td><td><span class="bd bd-g">باش</span></td><td><button class="btn btn-p btn-sm" onclick="showP('t-sendfile')">ناردنی فایل</button></td></tr>
+            <tr><td>فاتمە مستەفا</td><td>تەجوید-الف</td><td>٨٥٪</td><td>B+</td><td><span class="bd bd-g">باش</span></td><td><button class="btn btn-p btn-sm" onclick="showP('t-sendfile')">ناردنی فایل</button></td></tr>
+            <tr><td>مەحمود سەلیم</td><td>حفظ-باء</td><td>٧٠٪</td><td>C+</td><td><span class="bd bd-a">ئادی</span></td><td><button class="btn btn-p btn-sm" onclick="showP('t-sendfile')">ناردنی فایل</button></td></tr>
+            <tr><td>زەینەب کاکەی</td><td>قاعیدە-ج</td><td>٥٥٪</td><td>C</td><td><span class="bd bd-r">پێویستی کار</span></td><td><button class="btn btn-p btn-sm" onclick="showP('t-sendfile')">ناردنی فایل</button></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div id="p-t-hafiz" class="panel">
+        <div class="ph"><div><h2>دەفتەری داوا</h2><small>تۆمارکردنی داوا و حفظی قوتابیان</small></div>
+          <div style="display:flex;gap:.6rem" class="no-print"><button class="btn btn-o" onclick="window.print()">🖨️ چاپ</button><button class="btn btn-g" onclick="addHRow('t-hbody')">+ زیادکردن</button></div>
+        </div>
+        <div class="card">
+          <div class="hinfo">
+            <div><label>قوتابی</label><select style="width:100%;padding:.38rem .6rem;border:1px solid #ddd;border-radius:6px;font-family:'Tajawal',sans-serif"><option>ئەحمەد عەلی</option><option>فاتمە مستەفا</option><option>مەحمود سەلیم</option></select></div>
+            <div><label>قۆناغ</label><select style="width:100%;padding:.38rem .6rem;border:1px solid #ddd;border-radius:6px;font-family:'Tajawal',sans-serif"><option>ئاستی ١</option><option>ئاستی ٢</option><option selected>ئاستی ٣</option></select></div>
+            <div><label>مامۆستا</label><input value="ش. مستەفا کەریم" style="width:100%;padding:.38rem .6rem;border:1px solid #ddd;border-radius:6px;font-family:'Tajawal',sans-serif"></div>
+            <div><label>مانگ/ساڵ</label><input value="فیبراییری ٢٠٢٥" style="width:100%;padding:.38rem .6rem;border:1px solid #ddd;border-radius:6px;font-family:'Tajawal',sans-serif"></div>
+          </div>
+          <div style="overflow-x:auto"><table class="htbl">
+            <thead><tr><th rowspan="2">بەروار</th><th rowspan="2">ڕۆژ</th><th rowspan="2">نامادابوون</th><th colspan="2">ئایەت</th><th rowspan="2">سووراتی</th><th rowspan="2">تێبینی</th><th rowspan="2" class="no-print">کردار</th></tr><tr><th class="subth">لە</th><th class="subth">بۆ</th></tr></thead>
+            <tbody id="t-hbody">
+              <tr><td><input value="١٠/٠٢"></td><td><input value="شەممە"></td><td><input value="✓"></td><td><input value="٩٤"></td><td><input value="١٠٥"></td><td><select><option selected>البقرة</option></select></td><td><input value="جیید"></td><td class="no-print" style="text-align:center"><button class="btn btn-r btn-sm" onclick="delRow(this)">×</button></td></tr>
+            </tbody>
+          </table></div>
+          <div style="margin-top:.8rem" class="no-print"><button class="btn btn-p" onclick="toast('دەفتەرەکە خەزنکرا ✅')">خەزنکردن</button></div>
+        </div>
+      </div>
+
+      <div id="p-t-tasks" class="panel">
+        <div class="ph"><div><h2>دانانی ئەرک بە قوتابی</h2></div><button class="btn btn-g" onclick="showAddTaskModal()">+ ئەرکی نوێ</button></div>
+        <div id="t-tasks-list"></div>
+      </div>
+
+      <div id="p-t-sendfile" class="panel">
+        <div class="ph"><div><h2>ناردنی فایل بە قوتابی</h2></div></div>
+        <div class="card" style="max-width:580px">
+          <div id="upload-notif-area"></div>
+          <div style="border:2px dashed var(--gl);border-radius:var(--r);padding:1.8rem;text-align:center;cursor:pointer;background:rgba(27,67,50,.02);margin-bottom:1rem" onclick="document.getElementById('f-inp').click()">
+            <input type="file" id="f-inp" multiple style="display:none" onchange="handleFiles(this)">
+            <div style="font-size:2.2rem;margin-bottom:.6rem">📁</div>
+            <h4 style="color:var(--g);margin-bottom:.3rem">کلیک بکە یان فایل بینێ</h4>
+            <p style="color:#aaa;font-size:.8rem">PDF، Word، وێنە، MP3، ویدیۆ...</p>
+          </div>
+          <div id="sel-files" style="margin-bottom:.9rem"></div>
+          <div class="fg"><label>بنێرە بۆ</label><select id="send-to-sel"><option value="all">هەموو قوتابیان</option><option>ئەحمەد عەلی حەسەن</option><option>فاتمە مستەفا</option><option>مەحمود سەلیم</option><option>چینی تەجوید-الف (گرووپ)</option></select></div>
+          <div class="fg"><label>بابەت</label><input id="f-subject" placeholder="بابەتی فایلەکە..."></div>
+          <div class="fg"><label>تێبینی (دەستیاری)</label><textarea id="f-note" rows="3" placeholder="پەیامی تایبەت بۆ قوتابی..."></textarea></div>
+          <button class="btn btn-g" onclick="doSendFile()">📤 ناردن</button>
+        </div>
+        <div class="card">
+          <div class="card-h"><div class="card-title">📋 فایلە ناردراوەکان</div></div>
+          <div id="sent-files-list"></div>
+        </div>
+      </div>
+
+      <div id="p-t-grades" class="panel">
+        <div class="ph"><div><h2>نمرەدانی ئەلیکترۆنی</h2></div></div>
+        <div class="card" style="max-width:580px">
+          <div class="fg"><label>قوتابی</label><select><option>ئەحمەد عەلی</option><option>فاتمە مستەفا</option><option>مەحمود سەلیم</option></select></div>
+          <div class="frow">
+            <div class="fg"><label>بابەت</label><select><option>تەجوید</option><option>حفظ</option><option>قاعیدە</option><option>عەرەبی</option></select></div>
+            <div class="fg"><label>جۆری ئازموون</label><select><option>مانگانە</option><option>نیوسەر</option><option>کۆتایی ساڵ</option><option>داوا</option></select></div>
+          </div>
+          <div class="frow"><div class="fg"><label>نمرە (لە ١٠٠)</label><input type="number" min="0" max="100"></div><div class="fg"><label>بەروار</label><input type="date"></div></div>
+          <div class="fg"><label>تێبینی</label><textarea rows="3" placeholder="تێبینیت بۆ قوتابی..."></textarea></div>
+          <button class="btn btn-p" onclick="toast('نمرەکە تۆمارکرا ✅')">تۆمارکردن</button>
+        </div>
+      </div>
+
+      <div id="p-t-chat" class="panel">
+        <div class="ph"><div><h2>چات و گرووپ</h2><small>گفتوگۆی مامۆستا بە قوتابیان و گرووپەکان</small></div><button class="btn btn-g" onclick="createGroup()">+ دروستکردنی گرووپ</button></div>
+        <div class="chat-layout">
+          <div class="chat-rooms">
+            <div class="chat-rooms-head">گفتوگۆکان</div>
+            <div id="t-rooms"></div>
+          </div>
+          <div class="chat-main">
+            <div class="chat-head"><div><h3 id="t-chat-title">گفتوگۆ هەڵبژێرە</h3><small id="t-chat-sub">—</small></div></div>
+            <div class="chat-messages" id="t-chat-msgs"></div>
+            <div class="chat-input">
+              <textarea id="t-chat-inp" placeholder="پەیامت بنووسە..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat('teacher')}"></textarea>
+              <button class="chat-send" onclick="sendChat('teacher')">➤</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="p-t-att" class="panel">
+        <div class="ph"><div><h2>تۆمارکردنی ئامادەبوون</h2></div><button class="btn btn-p" onclick="toast('ئامادەبوونەکان خەزنکران ✅')">خەزنکردن</button></div>
+        <div class="card">
+          <div class="frow" style="margin-bottom:1rem">
+            <div class="fg"><label>چین</label><select><option>تەجوید-الف</option><option>حفظ-باء</option><option>قاعیدە-ج</option></select></div>
+            <div class="fg"><label>بەروار</label><input type="date" value="2025-02-23"></div>
+          </div>
+          <div style="overflow-x:auto"><table class="tbl">
+            <tr><th>#</th><th>ناوی قوتابی</th><th>ئامادەبوون</th><th>تێبینی</th></tr>
+            <tr><td>١</td><td>ئەحمەد عەلی حەسەن</td><td><select class="att-sel"><option>✓ ئامادە</option><option>✗ نەهات</option><option>~ دواخراو</option></select></td><td><input placeholder="..."></td></tr>
+            <tr><td>٢</td><td>فاتمە مستەفا عومەر</td><td><select class="att-sel"><option>✓ ئامادە</option><option>✗ نەهات</option><option>~ دواخراو</option></select></td><td><input placeholder="..."></td></tr>
+            <tr><td>٣</td><td>مەحمود سەلیم کاکەی</td><td><select class="att-sel"><option>✓ ئامادە</option><option selected>✗ نەهات</option><option>~ دواخراو</option></select></td><td><input placeholder="نەخۆش بوو"></td></tr>
+            <tr><td>٤</td><td>زەینەب کاکەی حەمید</td><td><select class="att-sel"><option>✓ ئامادە</option><option>✗ نەهات</option><option selected>~ دواخراو</option></select></td><td><input placeholder="..."></td></tr>
+          </table></div>
+        </div>
+      </div>
+
+      <div id="p-t-profile" class="panel">
+        <div class="ph"><div><h2>پرۆفایلی مامۆستا</h2></div></div>
+        <div class="card" style="max-width:580px">
+          <div style="display:flex;align-items:center;gap:1.2rem;margin-bottom:1.3rem;padding-bottom:1.1rem;border-bottom:1px solid #f0f0f0">
+            <div style="width:66px;height:66px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:var(--g);font-weight:700">م</div>
+            <div><h3 style="color:var(--g)">مستەفا کەریم ئەحمەد</h3><p style="color:#888;font-size:.82rem">مامۆستا — پسپۆڕی تەجوید و حفظ</p></div>
+          </div>
+          <div class="frow"><div class="fg"><label>ناوی یەکەم</label><input value="مستەفا"></div><div class="fg"><label>ناوی باپیر</label><input value="کەریم ئەحمەد"></div></div>
+          <div class="frow"><div class="fg"><label>ئیمەیڵ</label><input value="teacher@chwarcha.gov.krd" type="email"></div><div class="fg"><label>تەلەفۆن</label><input value="٠٧٧٠-٩٨٧-٦٥٤٣"></div></div>
+          <div class="fg"><label>پسپۆڕی</label><input value="تەجوید، حفظ، عەرەبی"></div>
+          <div class="frow"><div class="fg"><label>پاسووردی نوێ</label><input type="password" placeholder="•••••••"></div><div class="fg"><label>دووبارەکردنەوە</label><input type="password" placeholder="•••••••"></div></div>
+          <button class="btn btn-p" onclick="toast('پرۆفایلەکەت نوێکرایەوە ✅')">خەزنکردن</button>
+        </div>
+      </div>
+
+      <!-- ══ ADMIN PANELS ══ -->
+      <div id="p-a-home" class="panel">
+        <div class="ph"><div><h2>داشبۆردی بەڕێوەبەر ⚙️</h2><small>بنکەی چوارچرا — سیستەمی ئەلیکترۆنی</small></div></div>
+        <div class="stats-row">
+          <div class="sc"><div class="sc-icon" style="background:#d1fae5">👨‍🎓</div><div><div class="sc-n">٥٢٠</div><div class="sc-l">کۆی قوتابی</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#fef3c7">👩‍🏫</div><div><div class="sc-n">٣٢</div><div class="sc-l">مامۆستا</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#ede9fe">📚</div><div><div class="sc-n">٢٤</div><div class="sc-l">چینی چالاک</div></div></div>
+          <div class="sc"><div class="sc-icon" style="background:#fee2e2">📊</div><div><div class="sc-n">٩١٪</div><div class="sc-l"> گشتی</div></div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem">
+          <div class="card">
+            <div class="card-h"><div class="card-title">📊 ئامارەکانی مانگ</div></div>
+            <div style="display:flex;flex-direction:column;gap:.8rem">
+              <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>ئاژانوی داوای گشتی</span><span style="font-weight:700;color:var(--g)">٩١٪</span></div><div class="pw"><div class="pb" style="width:91%"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>قوتابیانی تۆمارکراو</span><span style="font-weight:700;color:var(--g)">٨٤٪</span></div><div class="pw"><div class="pb" style="width:84%"></div></div></div>
+              <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:3px"><span>ئامادەبوونی مامۆستایان</span><span style="font-weight:700;color:var(--g)">٩٦٪</span></div><div class="pw"><div class="pb" style="width:96%"></div></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><div class="card-title">🔔 دوایین چالاکیەکان</div></div>
+            <div style="font-size:.82rem;display:flex;flex-direction:column;gap:.55rem">
+              <div style="display:flex;gap:.5rem;align-items:center"><span>🆕</span><span>قوتابیی نوێ: ئەحمەد حەسەن تۆمارکرا</span><small style="margin-right:auto;color:#bbb">٥ خو</small></div>
+              <div style="display:flex;gap:.5rem;align-items:center"><span>📁</span><span>ش. مستەفا فایلی ناردووە</span><small style="margin-right:auto;color:#bbb">٢ کات</small></div>
+              <div style="display:flex;gap:.5rem;align-items:center"><span>✅</span><span>ئازمونی مانگانە تۆمارکرا</span><small style="margin-right:auto;color:#bbb">دوێنێ</small></div>
+              <div style="display:flex;gap:.5rem;align-items:center"><span>📝</span><span>نمرەی ٣ قوتابی نوێکرایەوە</span><small style="margin-right:auto;color:#bbb">دوێنێ</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="p-a-attendance" class="panel">
+        <div class="ph"><div><h2>ئامادەبوونی قوتابیان</h2><small>بینینی هەموو داتاکانی ئامادەبوون</small></div></div>
+        <div class="tabs">
+          <button class="tab-b on" onclick="switchTab(this,'att-tab','att-t1')">قوتابیان</button>
+          <button class="tab-b" onclick="switchTab(this,'att-tab','att-t2')">مامۆستایان</button>
+          <button class="tab-b" onclick="switchTab(this,'att-tab','att-t3')">بەرپرسانە</button>
+        </div>
+        <div id="att-t1" class="tab-c on">
+          <div class="card">
+            <div style="display:flex;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap">
+              <select class="fg" style="flex:1;min-width:150px;padding:.55rem .8rem;border:1px solid #ddd;border-radius:8px;font-family:'Tajawal',sans-serif"><option>هەموو چینەکان</option><option>تەجوید-الف</option><option>حفظ-باء</option></select>
+              <select class="fg" style="flex:1;min-width:150px;padding:.55rem .8rem;border:1px solid #ddd;border-radius:8px;font-family:'Tajawal',sans-serif"><option>فیبراییری ٢٠٢٥</option><option>کانونی دووەمی ٢٠٢٥</option></select>
+            </div>
+            <div class="att-tbl-wrap"><table class="att-tbl">
+              <thead><tr><th>ناو</th><th>چین</th><th>١</th><th>٢</th><th>٣</th><th>٤</th><th>٥</th><th>٦</th><th>٧</th><th>٨</th><th>٩</th><th>١٠</th><th>کۆی ئامادەبوون</th><th>٪</th></tr></thead>
+              <tbody>
+                <tr><td class="name-col">ئەحمەد عەلی</td><td>تەجوید-الف</td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><strong>٨</strong></td><td><span class="bd bd-g">٨٠٪</span></td></tr>
+                <tr><td class="name-col">فاتمە مستەفا</td><td>تەجوید-الف</td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><strong>٩</strong></td><td><span class="bd bd-g">٩٠٪</span></td></tr>
+                <tr><td class="name-col">مەحمود سەلیم</td><td>حفظ-باء</td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><strong>٦</strong></td><td><span class="bd bd-a">٦٠٪</span></td></tr>
+                <tr><td class="name-col">زەینەب کاکەی</td><td>قاعیدە-ج</td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><strong>٥</strong></td><td><span class="bd bd-r">٥٠٪</span></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <div id="att-t2" class="tab-c">
+          <div class="card"><table class="att-tbl">
+            <thead><tr><th>ناوی مامۆستا</th><th>پسپۆڕی</th><th>چین</th><th>١</th><th>٢</th><th>٣</th><th>٤</th><th>٥</th><th>کۆ</th><th>٪</th></tr></thead>
+            <tbody>
+              <tr><td class="name-col">ش. مستەفا کەریم</td><td>تەجوید</td><td>تەجوید-الف</td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><strong>٥</strong></td><td><span class="bd bd-g">١٠٠٪</span></td></tr>
+              <tr><td class="name-col">ش. سامی عومەر</td><td>حفظ</td><td>حفظ-باء</td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-a">✗</span></td><td><span class="att-dot dot-p">✓</span></td><td><span class="att-dot dot-p">✓</span></td><td><strong>٤</strong></td><td><span class="bd bd-g">٨٠٪</span></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div id="att-t3" class="tab-c">
+          <div class="card" style="padding:2rem;text-align:center;color:#aaa">
+            <div style="font-size:3rem;margin-bottom:.8rem">📊</div>
+            <p>ڕاپۆرتی گشتی ئامادەبوونی بەرپرسانە — دەتوانیت بیداونلۆد بکەیت</p>
+            <button class="btn btn-p" style="margin-top:1rem" onclick="toast('ڕاپۆرتەکە ئامادە دەکرێت... ✅')">داونلۆدی ڕاپۆرت (PDF)</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="p-a-students" class="panel">
+        <div class="ph"><div><h2>بەڕێوەبردنی قوتابیان</h2></div><button class="btn btn-g" onclick="showP('a-adduser')">+ قوتابیی نوێ</button></div>
+        <div class="card">
+          <div style="display:flex;gap:.7rem;margin-bottom:1rem">
+            <input style="flex:1;padding:.58rem .85rem;border:1px solid #ddd;border-radius:8px;font-family:'Tajawal',sans-serif;direction:rtl;font-size:.84rem" placeholder="🔍 گەڕان...">
+            <select style="padding:.55rem;border:1px solid #ddd;border-radius:8px;font-family:'Tajawal',sans-serif"><option>هەموو چینەکان</option><option>تەجوید-الف</option><option>حفظ-باء</option></select>
+          </div>
+          <table class="tbl">
+            <tr><th>#</th><th>ناو</th><th>ئیمەیڵ</th><th>چین</th><th>داوا</th><th>نمرە</th><th>بارودۆخ</th><th>کردار</th></tr>
+            <tr><td>١</td><td>ئەحمەد عەلی حەسەن</td><td>student@</td><td>تەجوید-الف</td><td>٩٢٪</td><td>A</td><td><span class="bd bd-g">چالاک</span></td><td><button class="btn btn-o btn-sm">دەستکاری</button></td></tr>
+            <tr><td>٢</td><td>فاتمە مستەفا عومەر</td><td>fatima@</td><td>تەجوید-الف</td><td>٨٥٪</td><td>B+</td><td><span class="bd bd-g">چالاک</span></td><td><button class="btn btn-o btn-sm">دەستکاری</button></td></tr>
+            <tr><td>٣</td><td>مەحمود سەلیم</td><td>mahmoud@</td><td>حفظ-باء</td><td>٧٠٪</td><td>C+</td><td><span class="bd bd-a">ئادی</span></td><td><button class="btn btn-o btn-sm">دەستکاری</button></td></tr>
+            <tr><td>٤</td><td>زەینەب کاکەی</td><td>zainab@</td><td>قاعیدە-ج</td><td>٥٥٪</td><td>C</td><td><span class="bd bd-r">پێویستی کار</span></td><td><button class="btn btn-o btn-sm">دەستکاری</button></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div id="p-a-teachers" class="panel">
+        <div class="ph"><div><h2>مامۆستایان</h2></div><button class="btn btn-g" onclick="showP('a-adduser')">+ مامۆستای نوێ</button></div>
+        <div class="card"><table class="tbl">
+          <tr><th>ناو</th><th>ئیمەیڵ</th><th>پسپۆڕی</th><th>قوتابی</th><th>ئامادەبوون</th><th>بارودۆخ</th><th>کردار</th></tr>
+          <tr><td>ش. مستەفا کەریم</td><td>teacher@</td><td>تەجوید، حفظ</td><td>٢٨</td><td><span class="bd bd-g">١٠٠٪</span></td><td><span class="bd bd-g">چالاک</span></td><td><button class="btn btn-o btn-sm">دەستکاری</button></td></tr>
+          <tr><td>ش. سامی عومەر</td><td>sami@</td><td>حفظ</td><td>١٧</td><td><span class="bd bd-g">٨٠٪</span></td><td><span class="bd bd-g">چالاک</span></td><td><button class="btn btn-o btn-sm">دەستکاری</button></td></tr>
+          <tr><td>ش. نووری مستەفا</td><td>noori@</td><td>عەرەبی، تەفسیر</td><td>٢٢</td><td><span class="bd bd-a">٦٠٪</span></td><td><span class="bd bd-a">نیمەکات</span></td><td><button class="btn btn-o btn-sm">دەستکاری</button></td></tr>
+        </table></div>
+      </div>
+
+      <div id="p-a-adduser" class="panel">
+        <div class="ph"><div><h2>زیادکردنی قوتابی / مامۆستا</h2></div></div>
+        <div class="card" style="max-width:600px">
+          <div id="add-notif"></div>
+          <div class="frow"><div class="fg"><label>ناوی یەکەم</label><input id="nu-fn" placeholder="ناوی یەکەم..."></div><div class="fg"><label>ناوی باپیر</label><input id="nu-ln" placeholder="ناوی باپیر..."></div></div>
+          <div class="frow"><div class="fg"><label>ئیمەیڵ</label><input type="email" id="nu-email" placeholder="...@chwarcha.gov.krd"></div><div class="fg"><label>پاسووردی دەستپێک</label><input type="password" id="nu-pass" placeholder="••••••••"></div></div>
+          <div class="frow"><div class="fg"><label>رۆڵ</label><select id="nu-role"><option>قوتابی</option><option>مامۆستا</option><option>بەڕێوەبەر</option></select></div><div class="fg"><label>چین / پسپۆڕی</label><select><option>تەجوید-الف</option><option>حفظ-باء</option><option>قاعیدە-ج</option><option>تەجوید</option><option>حفظ</option></select></div></div>
+          <div class="frow"><div class="fg"><label>تەلەفۆن</label><input placeholder="٠٧٧٠-..."></div><div class="fg"><label>تەمەن</label><input type="number" placeholder="تەمەن"></div></div>
+          <div class="fg"><label>تێبینی</label><textarea rows="2" placeholder="زانیارییەکی تر..."></textarea></div>
+          <button class="btn btn-p" onclick="doAddUser()">✉️ زیادکردن و ناردنی ئیمەیڵ</button>
+        </div>
+      </div>
+
+      <div id="p-a-reports" class="panel">
+        <div class="ph"><div><h2>ڕاپۆرتەکان</h2></div></div>
+        <div class="card" style="max-width:560px">
+          <div class="fg"><label>جۆری ڕاپۆرت</label><select><option>ئامارەکانی قوتابیان</option><option>ئامارەکانی مامۆستایان</option><option>ڕاپۆرتی ئامادەبوون</option><option>ڕاپۆرتی نمرەکان</option><option>دەفتەری حفظ</option></select></div>
+          <div class="frow"><div class="fg"><label>لە بەروار</label><input type="date"></div><div class="fg"><label>بۆ بەروار</label><input type="date"></div></div>
+          <div class="fg"><label>جۆری فایل</label><select><option>PDF</option><option>Excel</option></select></div>
+          <button class="btn btn-p" onclick="toast('ڕاپۆرتەکە ئامادەی داونلۆدە ✅')">🖨️ دەرکردنی ڕاپۆرت</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div><!-- /app-shell -->
+
+<!-- ADD TASK MODAL -->
+<div class="modal-backdrop" id="task-modal">
+  <div class="login-modal" style="max-width:500px">
+    <div class="lm-head" style="background:linear-gradient(135deg,var(--gold-d),var(--gold))">
+      <button class="lm-close" onclick="closeTaskModal()">✕</button>
+      <h2 style="color:var(--g)">ئەرکی نوێ</h2>
+      <small style="color:rgba(27,67,50,.7)">دانانی ئەرک بۆ قوتابی</small>
+    </div>
+    <div class="lm-body">
+      <div class="lm-fg"><label>بابەتی ئەرک</label><input id="task-title" placeholder="بابەتی ئەرک..."></div>
+      <div class="lm-fg"><label>وردەکاری</label><textarea id="task-desc" rows="3" style="width:100%;padding:.65rem .85rem;border:1px solid #ddd;border-radius:9px;font-family:'Tajawal',sans-serif;direction:rtl" placeholder="وردەکاری ئەرکەکە..."></textarea></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+        <div class="lm-fg"><label>بنێرە بۆ</label><select id="task-to" style="width:100%;padding:.65rem;border:1px solid #ddd;border-radius:9px;font-family:'Tajawal',sans-serif"><option>ئەحمەد عەلی</option><option>فاتمە مستەفا</option><option>مەحمود سەلیم</option><option>هەموو چینی تەجوید</option></select></div>
+        <div class="lm-fg"><label>کاتی کۆتایی</label><input type="date" id="task-deadline"></div>
+      </div>
+      <div class="lm-fg"><label>بابەت</label><select id="task-subject" style="width:100%;padding:.65rem;border:1px solid #ddd;border-radius:9px;font-family:'Tajawal',sans-serif"><option>تەجوید</option><option>حفظ</option><option>عەرەبی</option><option>قاعیدە</option></select></div>
+      <button class="lm-submit" style="background:var(--gold-d)" onclick="doAddTask()">✅ دانانی ئەرک</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════ DATA ══════════
+const USERS={
+  'student@chwarcha.gov.krd':{role:'student',name:'ئەحمەد عەلی حەسەن',av:'ئ'},
+  'teacher@chwarcha.gov.krd':{role:'teacher',name:'مستەفا کەریم ئەحمەد',av:'م'},
+  'admin@chwarcha.gov.krd':{role:'admin',name:'بەڕێوەبەر سەعید ئەحمەد',av:'ب'},
+};
+const MENUS={
+  student:[
+    {id:'s-home',ic:'🏠',lb:'سەرەتا'},
+    {id:'s-hafiz',ic:'📖',lb:'دەفتەری حفظم'},
+    {id:'s-tasks',ic:'✅',lb:'ئەرکەکانم',nb:'tasks'},
+    {id:'s-grades',ic:'📊',lb:'نمرەکانم'},
+    {id:'s-files',ic:'📁',lb:'فایلەکانم',nb:'files'},
+    {id:'s-chat',ic:'💬',lb:'چات'},
+    {id:'s-profile',ic:'👤',lb:'پرۆفایلم'},
+  ],
+  teacher:[
+    {id:'t-home',ic:'🏠',lb:'سەرەتا'},
+    {id:'t-hafiz',ic:'📖',lb:'دەفتەری داوا'},
+    {id:'t-tasks',ic:'✅',lb:'ئەرک دانان'},
+    {id:'t-att',ic:'📅',lb:'ئامادەبوون'},
+    {id:'t-sendfile',ic:'📤',lb:'ناردنی فایل'},
+    {id:'t-grades',ic:'📝',lb:'نمرەدان'},
+    {id:'t-chat',ic:'💬',lb:'چات و گرووپ'},
+    {id:'t-profile',ic:'👤',lb:'پرۆفایلم'},
+  ],
+  admin:[
+    {id:'a-home',ic:'🏠',lb:'داشبۆرد'},
+    {id:'a-attendance',ic:'📅',lb:'ئامادەبوون'},
+    {id:'a-students',ic:'👨‍🎓',lb:'قوتابیان'},
+    {id:'a-teachers',ic:'👩‍🏫',lb:'مامۆستایان'},
+    {id:'a-adduser',ic:'➕',lb:'زیادکردن'},
+    {id:'a-reports',ic:'📊',lb:'ڕاپۆرت'},
+  ]
+};
+
+let currRole='student', uploadedFiles=[], sharedFiles=[], tasks=[], chatRooms=[], activeChatRoom=null;
+
+// Init demo data
+function initData(){
+  tasks=[
+    {id:1,title:'حفظی سوڕەتی الملک',desc:'تا شەممەی داهاتوو حفظی سوڕەتی الملک بکە',to:'ئەحمەد عەلی',subject:'حفظ',deadline:'2025-03-01',done:false,from:'ش. مستەفا'},
+    {id:2,title:'تەمرینی ئیدغام',desc:'تەمرینی ئیدغامی مەع غوننە لە تەجویددا',to:'ئەحمەد عەلی',subject:'تەجوید',deadline:'2025-02-28',done:false,from:'ش. مستەفا'},
+    {id:3,title:'خوێندنەوەی باب ٣',desc:'باب سێیەمی کتێبی عەرەبی بخوێنەوە',to:'هەموو چینی تەجوید',subject:'عەرەبی',deadline:'2025-03-05',done:true,from:'ش. عومەر'},
+  ];
+  chatRooms=[
+    {id:'r1',name:'ش. مستەفا کەریم',sub:'مامۆستای تەجوید',av:'م',msgs:[
+      {from:'ش. مستەفا',text:'بەخێربێیت ئەحمەد! ئامادەی وانەی ئەمڕۆیت?',mine:false,time:'١٠:٣٠'},
+      {from:'من',text:'بەلێ مامۆستا، ئامادەم! تەنها پرسیارێکم هەیە دەربارەی ئیدغام',mine:true,time:'١٠:٣٢'},
+      {from:'ش. مستەفا',text:'باشە! وانەکان بیکە و داهاتوو ڕوونت دەکەمەوە',mine:false,time:'١٠:٣٣'},
+    ]},
+    {id:'r2',name:'گرووپی تەجوید-الف',sub:'چینی تەجوید — ١٥ تاک',av:'👥',msgs:[
+      {from:'ش. مستەفا',text:'سڵاو هەموو چینی تەجوید، ئازمونی داهاتوو شەممەیە، ئامادە بن!',mine:false,time:'٩:٠٠'},
+      {from:'فاتمە',text:'باشە مامۆستا! ئامادەمان',mine:false,time:'٩:١٥'},
+    ]},
+    {id:'r3',name:'گرووپی حفظ-باء',sub:'چینی حفظ — ١٢ تاک',av:'📖',msgs:[
+      {from:'ش. سامی',text:'ئامادەبوونی هەفتەیی: سوڕەتی البقرة بۆ ئایەت ١٠٠',mine:false,time:'٨:٠٠'},
+    ]},
+  ];
+}
+
+// ══════════ LOGIN ══════════
+function openLogin(role){
+  document.getElementById('login-modal').classList.add('open');
+  const emails={student:'student@chwarcha.gov.krd',teacher:'teacher@chwarcha.gov.krd',admin:'admin@chwarcha.gov.krd'};
+  if(role) document.getElementById('li-email').value=emails[role];
+  document.getElementById('li-pass').value='';
+  document.getElementById('li-err').style.display='none';
+}
+function closeLogin(){document.getElementById('login-modal').classList.remove('open')}
+
+function doLogin(){
+  const email=document.getElementById('li-email').value.trim();
+  const pass=document.getElementById('li-pass').value.trim();
+  const user=USERS[email];
+  if(!user||pass.length<3){const e=document.getElementById('li-err');e.style.display='block';e.textContent='ئیمەیڵ یان پاسووردت هەڵەیە! تکایە دووبارە هەوڵ بدە.';return;}
+  currRole=user.role;
+  initData();
+  closeLogin();
+  document.getElementById('landing').style.display='none';
+  document.getElementById('app-shell').style.display='block';
+  document.getElementById('tb-av').textContent=user.av;
+  document.getElementById('tb-name').textContent=user.name;
+  const rb=document.getElementById('tb-role-badge');
+  const labs={student:'قوتابی',teacher:'مامۆستا',admin:'بەڕێوەبەر'};
+  const cls={student:'tb-s',teacher:'tb-t',admin:'tb-a'};
+  rb.textContent=labs[user.role];rb.className='tb-badge '+cls[user.role];
+  if(user.role==='student')document.getElementById('s-display-name').textContent=user.name.split(' ')[0];
+  buildSidebar(user.role);
+  showP(MENUS[user.role][0].id);
+  renderSTaskPreview();
+  renderSTasks();
+  renderTasks();
+  renderSFiles();
+  renderChatRooms('student');
+  renderChatRooms('teacher');
+  renderAttGrid();
+}
+function doLogout(){
+  document.getElementById('app-shell').style.display='none';
+  document.getElementById('landing').style.display='block';
+  sharedFiles=[];tasks=[];chatRooms=[];
+}
+
+// ══════════ SIDEBAR ══════════
+function buildSidebar(role){
+  const sb=document.getElementById('sidebar-el');
+  sb.innerHTML='<div class="sb-sec"><div class="sb-sec-label">مینو</div></div>';
+  const sec=sb.querySelector('.sb-sec');
+  MENUS[role].forEach(item=>{
+    const d=document.createElement('div');
+    d.className='sb-item';d.id='sb-'+item.id;
+    d.onclick=()=>showP(item.id);
+    let nb='';
+    if(item.nb==='tasks'&&tasks.filter(t=>!t.done).length>0) nb=`<span class="sb-badge">${tasks.filter(t=>!t.done).length}</span>`;
+    if(item.nb==='files'&&sharedFiles.length>0) nb=`<span class="sb-badge">${sharedFiles.length}</span>`;
+    d.innerHTML=`<span class="sb-icon">${item.ic}</span><span>${item.lb}</span>${nb}`;
+    sec.appendChild(d);
+  });
+}
+function showP(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('on'));
+  const p=document.getElementById('p-'+id);if(p)p.classList.add('on');
+  const s=document.getElementById('sb-'+id);if(s)s.classList.add('on');
+}
+
+// ══════════ HAFIZ TABLE ══════════
+const SURAS=['الفاتحة','البقرة','آل عمران','النساء','المائدة','الأنعام','الأعراف','التوبة','يونس','يوسف','الكهف','مريم','طه','الملك','الرحمن','الواقعة','النجم'];
+function suraOpts(sel=''){return SURAS.map(s=>`<option${s===sel?' selected':''}>${s}</option>`).join('')}
+function addHRow(tbodyId){
+  const tb=document.getElementById(tbodyId);
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td><input placeholder="بەروار"></td><td><input placeholder="ڕۆژ"></td><td><input value="✓"></td><td><input placeholder="لە"></td><td><input placeholder="بۆ"></td><td><select>${suraOpts()}</select></td><td><input placeholder="تێبینی"></td><td class="no-print" style="text-align:center"><button class="btn btn-r btn-sm" onclick="delRow(this)">×</button></td>`;
+  tb.appendChild(tr);tr.querySelector('input').focus();
+}
+function delRow(btn){btn.closest('tr').remove()}
+
+// ══════════ TASKS ══════════
+function renderSTaskPreview(){
+  const el=document.getElementById('s-task-preview');if(!el)return;
+  const pending=tasks.filter(t=>!t.done).slice(0,3);
+  if(!pending.length){el.innerHTML='<p style="color:#aaa;font-size:.82rem;text-align:center;padding:1rem">هیچ ئەرکی چاوەروان نییە ✅</p>';return;}
+  el.innerHTML=pending.map(t=>`<div class="task-item"><div class="task-check ${t.done?'done':''}" onclick="toggleTask(${t.id},this)">${t.done?'✓':''}</div><div class="task-body"><h4 class="${t.done?'done':''}">${t.title}</h4><p>لە: ${t.from}</p><div class="task-meta"><span class="task-tag subject-tag">${t.subject}</span><span class="task-tag deadline-tag">⏰ ${t.deadline}</span></div></div></div>`).join('');
+  document.getElementById('s-task-count').textContent=tasks.filter(t=>!t.done).length;
+}
+function renderSTasks(){
+  const el=document.getElementById('s-tasks-list');if(!el)return;
+  if(!tasks.length){el.innerHTML='<div class="card" style="text-align:center;color:#aaa;padding:2rem">هیچ ئەرکێکت نییە</div>';return;}
+  el.innerHTML=tasks.map(t=>`<div class="task-item"><div class="task-check ${t.done?'done':''}" onclick="toggleTask(${t.id},this)">${t.done?'✓':''}</div><div class="task-body"><h4 class="${t.done?'done':''}">${t.title}</h4><p>${t.desc}</p><div class="task-meta"><span class="task-tag subject-tag">${t.subject}</span><span class="task-tag deadline-tag">⏰ ${t.deadline}</span><span class="task-tag" style="background:#f3f4f6;color:#555">لە: ${t.from}</span></div></div></div>`).join('');
+}
+function renderTasks(){
+  const el=document.getElementById('t-tasks-list');if(!el)return;
+  if(!tasks.length){el.innerHTML='<div class="card" style="text-align:center;color:#aaa;padding:2rem">هیچ ئەرکێکت نیە</div>';return;}
+  el.innerHTML=tasks.map(t=>`<div class="task-item"><div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:center"><h4 style="font-size:.88rem;font-weight:700;${t.done?'text-decoration:line-through;color:#aaa':''}">${t.title}</h4><span class="bd ${t.done?'bd-g':'bd-a'}">${t.done?'تەواو بووە':'چاوەروان'}</span></div><p style="font-size:.78rem;color:#888;margin:.3rem 0">${t.desc}</p><div style="display:flex;gap:.4rem;margin-top:.4rem"><span class="task-tag subject-tag">${t.subject}</span><span class="task-tag" style="background:#f0f0f0;color:#555">بۆ: ${t.to}</span><span class="task-tag deadline-tag">⏰ ${t.deadline}</span></div></div></div>`).join('');
+}
+function toggleTask(id,el){
+  const t=tasks.find(x=>x.id===id);if(!t)return;
+  t.done=!t.done;el.classList.toggle('done',t.done);el.textContent=t.done?'✓':'';
+  renderSTaskPreview();renderSTasks();renderTasks();buildSidebar(currRole);
+}
+function showAddTaskModal(){document.getElementById('task-modal').classList.add('open')}
+function closeTaskModal(){document.getElementById('task-modal').classList.remove('open')}
+function doAddTask(){
+  const title=document.getElementById('task-title').value.trim();
+  if(!title){toast('بابەتی ئەرک بنووسە!');return;}
+  tasks.push({id:Date.now(),title,desc:document.getElementById('task-desc').value,to:document.getElementById('task-to').value,subject:document.getElementById('task-subject').value,deadline:document.getElementById('task-deadline').value||'—',done:false,from:'ش. مستەفا'});
+  closeTaskModal();renderTasks();renderSTasks();renderSTaskPreview();buildSidebar(currRole);
+  toast('ئەرکەکە دانرا ✅');
+}
+
+// ══════════ FILES ══════════
+function handleFiles(input){
+  uploadedFiles=Array.from(input.files);
+  const c=document.getElementById('sel-files');c.innerHTML='';
+  uploadedFiles.forEach(f=>{
+    const d=document.createElement('div');
+    d.style.cssText='display:flex;align-items:center;gap:.5rem;padding:.45rem .7rem;background:#f9f9f9;border-radius:8px;margin-bottom:.35rem;font-size:.82rem';
+    d.innerHTML=`<span>${fileIcon(f.name)}</span><span>${f.name}</span><span style="color:#bbb;font-size:.72rem">(${(f.size/1024).toFixed(1)} KB)</span>`;
+    c.appendChild(d);
+  });
+}
+function fileIcon(n){if(/\.pdf$/i.test(n))return'📄';if(/\.(doc|docx)$/i.test(n))return'📝';if(/\.(jpg|jpeg|png)$/i.test(n))return'🖼️';if(/\.(mp3|wav)$/i.test(n))return'🎵';if(/\.(mp4|mov)$/i.test(n))return'🎬';return'📎';}
+function doSendFile(){
+  if(!uploadedFiles.length){toast('تکایە فایلێک هەڵبژێرە!');return;}
+  uploadedFiles.forEach(f=>{sharedFiles.push({name:f.name,subject:document.getElementById('f-subject').value||'فایلی نوێ',from:'ش. مستەفا کەریم',to:document.getElementById('send-to-sel').value,note:document.getElementById('f-note').value,date:new Date().toLocaleDateString('ar'),icon:fileIcon(f.name),url:URL.createObjectURL(f)});});
+  uploadedFiles=[];
+  document.getElementById('sel-files').innerHTML='';
+  document.getElementById('f-subject').value='';
+  document.getElementById('f-note').value='';
+  document.getElementById('f-inp').value='';
+  renderSFiles();renderSentFiles();buildSidebar(currRole);toast('فایلەکان ناردران ✅');
+}
+function renderSFiles(){
+  const el=document.getElementById('s-files-area');if(!el)return;
+  if(!sharedFiles.length){el.innerHTML='<div class="card" style="text-align:center;padding:2.5rem;color:#aaa"><div style="font-size:3rem;margin-bottom:.8rem">📂</div><p>هیچ فایلێکی نوێ نییە</p></div>';return;}
+  let h='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:1rem">';
+  sharedFiles.forEach((f,i)=>{h+=`<div style="background:#fff;border:1px solid #eee;border-radius:var(--r);padding:1.1rem;text-align:center;cursor:pointer;transition:.2s" onmouseover="this.style.boxShadow='0 6px 20px rgba(0,0,0,.08)'" onmouseout="this.style.boxShadow='none'"><div style="font-size:2.2rem;margin-bottom:.6rem">${f.icon}</div><div style="font-size:.8rem;font-weight:700;color:var(--dark);margin-bottom:.3rem">${f.name}</div><div style="font-size:.72rem;color:var(--g);font-weight:600">لە: ${f.from}</div><div style="font-size:.7rem;color:#aaa;margin:.2rem 0">${f.subject}</div>${f.note?`<div style="font-size:.7rem;color:#777;font-style:italic;margin:.3rem 0">"${f.note}"</div>`:''}<a href="${f.url}" download="${f.name}" style="display:block;margin-top:.7rem;background:var(--g);color:#fff;padding:.4rem;border-radius:7px;font-size:.75rem;font-weight:700;text-decoration:none">📥 داونلۆد</a></div>`;});
+  h+='</div>';el.innerHTML=h;
+}
+function renderSentFiles(){
+  const el=document.getElementById('sent-files-list');if(!el)return;
+  if(!sharedFiles.length){el.innerHTML='<p style="color:#aaa;font-size:.82rem">هیچ فایلێک نەنراوە</p>';return;}
+  el.innerHTML='<table class="tbl"><tr><th>فایل</th><th>بۆ</th><th>بابەت</th><th>بارودۆخ</th></tr>'+sharedFiles.map(f=>`<tr><td>${f.icon} ${f.name}</td><td>${f.to||'هەموو'}</td><td>${f.subject}</td><td><span class="bd bd-g">ناردراو</span></td></tr>`).join('')+'</table>';
+}
+
+// ══════════ CHAT ══════════
+function renderChatRooms(who){
+  const el=document.getElementById(who==='student'?'s-rooms':'t-rooms');if(!el)return;
+  el.innerHTML=chatRooms.map(r=>`
+    <div class="room-item" id="room-${who}-${r.id}" onclick="openRoom('${who}','${r.id}')">
+      <div class="room-avatar" style="background:${r.id==='r1'?'var(--gold)':r.id==='r2'?'var(--g)':'#6366f1'};color:${r.id==='r1'?'var(--g)':'#fff'};font-size:.9rem">${r.av}</div>
+      <div class="room-info">
+        <h4>${r.name}</h4>
+        <p>${r.msgs[r.msgs.length-1]?.text.slice(0,30)||'—'}...</p>
+      </div>
+    </div>`).join('');
+}
+function openRoom(who,rid){
+  activeChatRoom=rid;
+  document.querySelectorAll('.room-item').forEach(r=>r.classList.remove('on'));
+  document.getElementById('room-'+who+'-'+rid)?.classList.add('on');
+  const room=chatRooms.find(r=>r.id===rid);if(!room)return;
+  document.getElementById(who+'-chat-title').textContent=room.name;
+  document.getElementById(who+'-chat-sub').textContent=room.sub;
+  const msgs=document.getElementById(who+'-chat-msgs');
+  msgs.innerHTML=room.msgs.map(m=>`<div class="msg ${m.mine?'msg-in':'msg-out'}"><div class="msg-name">${m.from}</div>${m.text}<div class="msg-time">${m.time}</div></div>`).join('');
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function sendChat(who){
+  const inp=document.getElementById(who+'-chat-inp');
+  const text=inp.value.trim();if(!text||!activeChatRoom)return;
+  const room=chatRooms.find(r=>r.id===activeChatRoom);if(!room)return;
+  const now=new Date();const t=`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+  room.msgs.push({from:'من',text,mine:true,time:t});
+  inp.value='';
+  const msgs=document.getElementById(who+'-chat-msgs');
+  msgs.innerHTML=room.msgs.map(m=>`<div class="msg ${m.mine?'msg-in':'msg-out'}"><div class="msg-name">${m.from}</div>${m.text}<div class="msg-time">${m.time}</div></div>`).join('');
+  msgs.scrollTop=msgs.scrollHeight;
+  renderChatRooms(who);
+  // Simulate reply after 1s
+  setTimeout(()=>{
+    const replies=['بەلێ، فامکردم!','زۆر سپاس 🙏','باشە مامۆستا!','تێگەیشتم، کارم پێوە دەکەم'];
+    room.msgs.push({from:room.name,text:replies[Math.floor(Math.random()*replies.length)],mine:false,time:`${now.getHours()}:${String(now.getMinutes()+1).padStart(2,'0')}`});
+    const m2=document.getElementById(who+'-chat-msgs');
+    m2.innerHTML=room.msgs.map(m=>`<div class="msg ${m.mine?'msg-in':'msg-out'}"><div class="msg-name">${m.from}</div>${m.text}<div class="msg-time">${m.time}</div></div>`).join('');
+    m2.scrollTop=m2.scrollHeight;
+  },1200);
+}
+function createGroup(){
+  const name=prompt('ناوی گرووپ:');if(!name)return;
+  const newRoom={id:'r'+Date.now(),name:name,sub:'گرووپی نوێ',av:'👥',msgs:[]};
+  chatRooms.push(newRoom);renderChatRooms('teacher');toast(`گرووپ "${name}" دروست کرا ✅`);
+}
+
+// ══════════ ATTENDANCE GRID ══════════
+function renderAttGrid(){
+  const el=document.getElementById('s-att-grid');if(!el)return;
+  const days=['ش','ی','د','س','چ','پ'];
+  const statuses=['att-p','att-p','att-a','att-p','att-p','att-p','att-p','att-a','att-p','att-p','att-p','att-p','att-a','att-p','att-p','att-p','att-p','att-p','att-a','att-p','att-p'];
+  const labels=['✓','✓','✗','✓','✓','✓','✓','✗','✓','✓','✓','✓','✗','✓','✓','✓','✓','✓','✗','✓','✓'];
+  el.innerHTML=statuses.slice(0,21).map((s,i)=>`<div class="att-day ${s}"><div class="d">${i+1}</div><div class="s">${labels[i]}</div></div>`).join('');
+}
+
+// ══════════ ADMIN ══════════
+function doAddUser(){
+  const fn=document.getElementById('nu-fn').value.trim();
+  const email=document.getElementById('nu-email').value.trim();
+  if(!fn||!email){toast('تکایە هەموو خانەکان پڕ بکەرەوە!');return;}
+  document.getElementById('add-notif').innerHTML='<div style="background:#d1fae5;border:1px solid #6ee7b7;color:#065f46;border-radius:8px;padding:.7rem 1rem;margin-bottom:.8rem;font-size:.85rem">✅ زیادکرا! ئیمەیڵی بەخێرهاتن ناردراو بۆ '+email+'</div>';
+  setTimeout(()=>{if(document.getElementById('add-notif'))document.getElementById('add-notif').innerHTML=''},5000);
+}
+
+// ══════════ TAB SWITCH ══════════
+function switchTab(btn,group,tabId){
+  document.querySelectorAll('.tab-b').forEach(b=>{if(b.closest('[id]')?.id===btn.closest('[id]')?.id)b.classList.remove('on')});
+  btn.classList.add('on');
+  document.querySelectorAll('.tab-c').forEach(c=>{if(['att-t1','att-t2','att-t3'].includes(c.id))c.classList.remove('on')});
+  document.getElementById(tabId).classList.add('on');
+}
+
+// ══════════ TOAST ══════════
+function toast(msg,err=false){
+  const t=document.createElement('div');
+  t.className='toast';if(err)t.style.background=var_r();
+  t.textContent=msg;document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+function var_r(){return'#991B1B'}
+
+// ══════════ SMOOTH SCROLL ══════════
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const h=this.getAttribute('href');
+    if(h.startsWith('#')&&!['#portals','#about','#courses','#contact'].some(s=>h.startsWith(s))&&!this.onclick)return;
+    const t=document.querySelector(h);
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  });
+});
+</script>
+</body>
+</html>
